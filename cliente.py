@@ -1,15 +1,18 @@
 ### cliente
-import socket
+import socket, pickle
 import time
 import timeit
 import sys
-
+from datetime import datetime
+import datetime
+import json
+import os
 
 #loop de 5 veses para calcular a media
 
 #vetor para armazenar os 5 valores do RTT
 meuVetor = []
-
+print time.strftime('%d/%M/%Y %H:%M')
 for x in range(1, 6):
     #enviando mensagem
     HOST = '127.0.0.1'      # Endereco IP do Servidor
@@ -31,9 +34,20 @@ for x in range(1, 6):
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     orig = (HOST, PORT)
     udp.bind(orig)
+    #recebendo data e tempo:
+    data, cliente = udp.recvfrom(1024)
+    data_arr = pickle.loads(data)
+    #imprimindo dados recebidos:
+    #data_arr[1] significa o valor do tempo de execucao do servidor
+    #data_arr[0] significa a data e hora que o srvidor enviou
+    print 'Received', repr(data_arr)
+    msg = data_arr[1]
+    print 'estou aqui'
+    print msg
+
+
+    #print ('%s' % (dados,))
     
-    msg, cliente = udp.recvfrom(1024)
-    print ''
     #tempo que a mensagem chega no servidor
     tempo_final = timeit.default_timer()  #TS4
     print ('Recebendo msg: %s,\n         Do cliente: %s,\n         Tempo fim: %s\n' % (msg, cliente, tempo_final))
@@ -48,6 +62,22 @@ for x in range(1, 6):
     meuVetor.append(RTT)
     #rtt_in_ms = round(recv_time_ms - send_time_ms, 3)
     #now = datetime.now()
-print('\nMedia: %sms' % (sum(meuVetor) / float(len(meuVetor))))
-#print(  )
-#print mean(meuVetor)
+    
+
+print ('Media do RTT de ida e vinda: %sms' % ((sum(meuVetor) / float(len(meuVetor)))))
+
+print ('Data e hora do servidor: %s' % (data_arr[0]))
+
+print ('Microsegundo da data do servidor: %s' % (data_arr[0].microsecond ) )
+
+data_arr[0] = data_arr[0]-datetime.timedelta(milliseconds=((sum(meuVetor) / float(len(meuVetor)))/2))
+#dat.microsecond=data_arr[0].microsecond-((sum(meuVetor) / float(len(meuVetor)))/2)
+
+dat = data_arr[0]
+dat = dat-datetime.timedelta(microseconds=1)
+print ('Microsegundo ajustado: %s' % (dat.microsecond ) )
+
+print ('Data e hora do servidor ajustada para colocar no sistema do cliente: %s' % (data_arr[0]-datetime.timedelta(microseconds=1)))
+
+print ('\nMedia do RTT de ida: %sms\n' % ((sum(meuVetor) / float(len(meuVetor)))/2))
+#print ('O cliente deve ajustar a data e hora para: %s' % (data_arr[0]-((sum(meuVetor) / float(len(meuVetor)))/2)))

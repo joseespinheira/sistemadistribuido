@@ -1,9 +1,12 @@
 ### servidor
 #from datetime import datetime
-import socket
+import socket, pickle
 import time
 import timeit
 import sys
+import datetime
+import json
+import os
 
 while True:
     
@@ -38,15 +41,25 @@ while True:
         tempo_saida_servidor = timeit.default_timer()
         print ('Tempo final: %s' % (tempo_saida_servidor,))
         tempo_gasto_servidor = tempo_saida_servidor - tempo_servidor
+        data = datetime.datetime.now()
+        minhahora = os.popen("date +%Y%m%d")
+        msg = str(tempo_gasto_servidor + minhahora)
+        
+        arr1 = [data,msg]
+        #arr2 = [4,5,6]
+        #someVar = 7
+        data_string = pickle.dumps(arr1)
+        #socket.send(data.encode())
+        #data = json.dumps({"a": arr1, "b": arr2, "c": someVar})
+        #socket.send(data.encode())
         
         print ('Diferenca: %s' % (tempo_gasto_servidor,))
         print ('-------------------------------')
         print ('Enviando a resposta para:')
         print dest, msg
         print ('-------------------------------')
-        msg = str(tempo_gasto_servidor)
         #while msg <> '\x18':
-        udp.sendto (msg, dest)
+        udp.sendto (data_string,dest)
         udp.close()
     else: 
         if msg == 'sair':
@@ -54,4 +67,5 @@ while True:
             sys.exit()
         else:
             print cliente, msg
-        
+            
+# Comando pra pegar a hora  minhahora = os.popen("date +%Y%m%d")            

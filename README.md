@@ -13,8 +13,15 @@ O RTT é verificado 5 vezes e calculada uma média;
 
 
 O cliente envia mensagem solicitando a hora do relógio do servidor;
-O servidor verifica sua hora local e responde ao cliente com esta informação;
-O cliente atualiza seu relógio com a hora informada pelo servidor somada ao tempo de comunicação verifica antes pelo RTT.
+
+
+O servidor verifica sua hora local e 
+responde ao cliente com esta informação;
+O cliente atualiza seu relógio com a 
+hora informada pelo servidor somada ao 
+tempo de comunicação verifica antes pelo RTT.
+
+
 Os programas devem ser feitos em Python, utilizando sockets e comunicação via UDP.
 
 
@@ -36,16 +43,17 @@ o servidor deverá exibir:
     
     Quando receber a mensagem exibirá o tempo inicial
     
-    vai processar algo
+    vai processar algo, no momento é um seep.
     
-    Irá responder para o cliente
+    Irá responder para o cliente com o tempo gasto.
     
     
 o cliente deverá exibir:
     (em construção)
 
 
-
+import datetime
+datetime.datetime.now()
 -
 --
 ---
