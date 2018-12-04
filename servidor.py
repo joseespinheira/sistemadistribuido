@@ -7,11 +7,12 @@ import sys
 import datetime
 import json
 import os
-
+#os.getenv(PORT, 8080)
 while True:
     
-    HOST = '127.0.0.1'              # Endereco IP do Servidor
-    PORT = 8081            # Porta que o Servidor esta
+    #HOST = socket.gethostbyname('sisdistribuido-jose-espinheira.cs50.io')              # Endereco IP do Servidor
+    HOST = 'localhost'   
+    PORT = 8081                     # Porta que o Servidor esta
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     orig = (HOST, PORT)
     udp.bind(orig)
@@ -42,8 +43,10 @@ while True:
         print ('Tempo final: %s' % (tempo_saida_servidor,))
         tempo_gasto_servidor = tempo_saida_servidor - tempo_servidor
         data = datetime.datetime.now()
-        minhahora = os.popen("date +%Y%m%d")
-        msg = str(tempo_gasto_servidor + minhahora)
+        minhadata = os.popen("date +%Y%m%d") #encaminhar o conteudo dessa variavel
+        minhahora = os.popen("date +%T") #encaminhar essa variavel para o cliente
+      
+        msg = str(tempo_gasto_servidor)
         
         arr1 = [data,msg]
         #arr2 = [4,5,6]

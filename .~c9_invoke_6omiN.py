@@ -15,7 +15,7 @@ meuVetor = []
 print time.strftime('%d/%M/%Y %H:%M')
 for x in range(1, 6):
     #enviando mensagem
-    HOST = '177.134.160.104'      # Endereco IP do Servidor
+    HOST = '13.64.149.219'      # Endereco IP do Servidor
     PORT = 8081             # Porta que o Servidor esta
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     dest = (HOST, PORT)
@@ -29,7 +29,7 @@ for x in range(1, 6):
     udp.close()
     
     #recebendo mensagem
-    HOST = '0.0.0.0'              # Endereco IP de recebimento
+    HOST = '0.0.0.'              # Endereco IP de recebimento
     PORT = 8082                     # Porta de recebimento
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     orig = (HOST, PORT)

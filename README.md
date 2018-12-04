@@ -52,8 +52,11 @@ o cliente deverá exibir:
     (em construção)
 
 
-import datetime
-datetime.datetime.now()
+# Melhoramentos futuros:
+
+- Colocar controle para perda de pacote.
+- 
+
 -
 --
 ---

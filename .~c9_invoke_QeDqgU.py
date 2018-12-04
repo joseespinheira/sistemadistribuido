@@ -15,7 +15,7 @@ meuVetor = []
 print time.strftime('%d/%M/%Y %H:%M')
 for x in range(1, 6):
     #enviando mensagem
-    HOST = '177.134.160.104'      # Endereco IP do Servidor
+    HOST = '198.199.112.176'      # Endereco IP do Servidor
     PORT = 8081             # Porta que o Servidor esta
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     dest = (HOST, PORT)
@@ -29,7 +29,7 @@ for x in range(1, 6):
     udp.close()
     
     #recebendo mensagem
-    HOST = '0.0.0.0'              # Endereco IP de recebimento
+    HOST = '127.0.0.1'              # Endereco IP de recebimento
     PORT = 8082                     # Porta de recebimento
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     orig = (HOST, PORT)
@@ -72,7 +72,7 @@ print ('Microsegundo da data do servidor: %s' % (data_arr[0].microsecond ) )
 
 data_arr[0] = data_arr[0]-datetime.timedelta(milliseconds=((sum(meuVetor) / float(len(meuVetor)))/2))
 #dat.microsecond=data_arr[0].microsecond-((sum(meuVetor) / float(len(meuVetor)))/2)
-
+print ('Data e hora do servidor ajustada: %s' % (dat.replace--timedelta(microsmicrosecond-((sum(meuVetor) / float(len(meuVetor)))/2))))
 dat = data_arr[0]
 dat = dat-datetime.timedelta(microseconds=1)
 print ('Microsegundo ajustado: %s' % (dat.microsecond ) )
@@ -82,3 +82,9 @@ print ('Data e hora do servidor ajustada para colocar no sistema do cliente: %s'
 print ('\nMedia do RTT de ida: %sms\n' % ((sum(meuVetor) / float(len(meuVetor)))/2))
 #print ('O cliente deve ajustar a data e hora para: %s' % (data_arr[0]-((sum(meuVetor) / float(len(meuVetor)))/2)))
 
+
+#Comando pra ajustar a data os.popen("date +%Y%m%d")
+
+#Comando pra ajustar a hora os.popen("#date +%T -s "15:53:13" ")
+
+   
