@@ -7,18 +7,19 @@ import sys
 import datetime
 import json
 import os
-#os.getenv(PORT, 8080)
+
 while True:
     
-    #HOST = socket.gethostbyname('sisdistribuido-jose-espinheira.cs50.io')              # Endereco IP do Servidor
-    HOST = 'localhost'   
-    PORT = 8081                     # Porta que o Servidor esta
+   
+    HOST = '0.0.0.0' 
+    PORT = 8081   #Porta que o Servidor esta
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     orig = (HOST, PORT)
     udp.bind(orig)
     print ('\n\nOuvindo... %s' % (orig,))
     #recebe a mensagem
     msg, cliente = udp.recvfrom(1024)
+    msg = msg.decode()
     if msg=='hora':
         tempo_servidor = timeit.default_timer()
         print ('Tempo inicial: %s' % (tempo_servidor,))
@@ -26,16 +27,16 @@ while True:
         
         #porcessa alguma coisa
         print ('processando...')
-        for i in range(1, 2):
-            time.sleep(1)
+        #for i in range(1, 2):
+        #    time.sleep(1)
         #imprimi o cliente
         print ('-------------------------------')
         print ('Enviado de:')
         print (cliente, msg)
         print ('-------------------------------')
         #Enviando mensagem de volta
-        HOST = '127.0.0.1'  # Endereco IP do Servidor
-        PORT = 8082            # Porta que o Servidor esta
+        HOST = cliente[0]  # Endereco IP do Cliente
+        PORT = 8082            # Porta que o Cliente esta
         udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         dest = (HOST, PORT)
         
@@ -43,9 +44,7 @@ while True:
         print ('Tempo final: %s' % (tempo_saida_servidor,))
         tempo_gasto_servidor = tempo_saida_servidor - tempo_servidor
         data = datetime.datetime.now()
-        minhadata = os.popen("date +%Y%m%d") #encaminhar o conteudo dessa variavel
-        minhahora = os.popen("date +%T") #encaminhar essa variavel para o cliente
-      
+             
         msg = str(tempo_gasto_servidor)
         
         arr1 = [data,msg]
@@ -59,7 +58,7 @@ while True:
         print ('Diferenca: %s' % (tempo_gasto_servidor,))
         print ('-------------------------------')
         print ('Enviando a resposta para:')
-        print dest, msg
+        print (dest, msg)
         print ('-------------------------------')
         #while msg <> '\x18':
         udp.sendto (data_string,dest)
@@ -69,6 +68,6 @@ while True:
             print ('bye, bye')
             sys.exit()
         else:
-            print cliente, msg
+            print (cliente, msg)
             
 # Comando pra pegar a hora  minhahora = os.popen("date +%Y%m%d")            

@@ -80,7 +80,7 @@ udp.close()
 #now = datetime.now()
 
 
-
+sudo apt-get install openmpi-bin openmpi-common openmpi-dev openmpi-libs0 libmpich1.0c2 libmpich-mpd1.0c2 mpich-bin mpich-mpd-bin mpi-doc
 -------------------------------------------------------
 
 Trabalho final

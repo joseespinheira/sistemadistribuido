@@ -12,16 +12,16 @@ import os
 
 #vetor para armazenar os 5 valores do RTT
 meuVetor = []
-print time.strftime('%d/%M/%Y %H:%M')
+print (time.strftime('%d/%M/%Y %H:%M'))
 for x in range(1, 6):
     #enviando mensagem
-    HOST = '177.134.160.104'      # Endereco IP do Servidor
+    HOST = ''      # Endereco IP do Servidor
     PORT = 8081             # Porta que o Servidor esta
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     dest = (HOST, PORT)
 
     msg = 'hora'
-    udp.sendto (msg, dest)
+    udp.sendto (msg.encode(), dest)
     
     #Tempo em que a mensagem sai para o servidor.
     tempo_inicial = timeit.default_timer()
@@ -29,8 +29,8 @@ for x in range(1, 6):
     udp.close()
     
     #recebendo mensagem
-    HOST = '0.0.0.0'              # Endereco IP de recebimento
-    PORT = 8082                     # Porta de recebimento
+    HOST = '0.0.0.0'   # Endereco IP para ouvir
+    PORT = 8082        # Porta de recebimento
     udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     orig = (HOST, PORT)
     udp.bind(orig)
@@ -40,10 +40,9 @@ for x in range(1, 6):
     #imprimindo dados recebidos:
     #data_arr[1] significa o valor do tempo de execucao do servidor
     #data_arr[0] significa a data e hora que o srvidor enviou
-    print 'Received', repr(data_arr)
+    print ('Received', repr(data_arr))
     msg = data_arr[1]
-    print 'estou aqui'
-    print msg
+    print (msg)
 
 
     #print ('%s' % (dados,))
@@ -77,8 +76,18 @@ dat = data_arr[0]
 dat = dat-datetime.timedelta(microseconds=1)
 print ('Microsegundo ajustado: %s' % (dat.microsecond ) )
 
-print ('Data e hora do servidor ajustada para colocar no sistema do cliente: %s' % (data_arr[0]-datetime.timedelta(microseconds=1)))
 
+dadosdatahora = str(dat)
+arraydatahora = dadosdatahora.split( )
+dataarray = arraydatahora[0].split("-")
+data = dataarray[0]+dataarray[1]+dataarray[2]
+horab = arraydatahora[1]
+hora = horab.split(".")
+hora = hora[0]
+comando = "date -s \""+data+" "+hora+ "\""
+
+print ("O comando executado foi"+comando)
+print ('Data e hora do servidor ajustada para colocar no sistema do cliente: %s' % (data_arr[0]-datetime.timedelta(microseconds=1)))
 print ('\nMedia do RTT de ida: %sms\n' % ((sum(meuVetor) / float(len(meuVetor)))/2))
-#print ('O cliente deve ajustar a data e hora para: %s' % (data_arr[0]-((sum(meuVetor) / float(len(meuVetor)))/2)))
+#os.popen(comando)
 
