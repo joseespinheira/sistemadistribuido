@@ -1,3 +1,16 @@
+
+iniciar o virtual venv:
+    cd djangogirls
+    source myvenv/bin/activate
+
+para iniciar o servidor:
+    python manage.py runserver 0.0.0.0:8080   
+
+
+
+
+
+
 Comunicação cliente-servidor e sincronização:
 Desenvolver um servidor para sincronização de relógios e um cliente para utilizar este servidor.
 A cada vez que o cliente desejar sincronizar seu relógio com o servidor deverá primeiro verificar o tempo de tráfego das mensagens entre ambos.
